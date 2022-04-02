@@ -1,15 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 require('dotenv').config();
+const ProductsRoute = require('./routes/products')
 
 
 
 
 const PORT = process.env.PORT || 3000
+//middleware
+app.use(express.json());//we will be posting json data
+app.use(express.urlencoded({extended:true}));//tell server we can have objects arrays not only string
+
+//routes
+app.use('/api/products',ProductsRoute);
 
 //connect to mongo db atlas
 mongoose.connect(
